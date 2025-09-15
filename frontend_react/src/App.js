@@ -90,6 +90,7 @@ function App() {
   /* ------------------------------ EVENT HANDLERS ----------------------------- */
 
   const handleSelectMood = (moodKey) => {
+    // TEST: New mood entries should appear immediately in Recent History and Summary
     // Adds a new mood entry to the in-memory history.
     // This instantly updates the UI (Recent History, Summary) but is not
     // persisted to localStorage until 'Save' is clicked.
@@ -99,36 +100,18 @@ function App() {
   };
 
   const handleSaveHistory = () => {
+    // TEST: Save button should persist current UI state to localStorage
     // Explicitly saves the current in-memory history to localStorage.
     saveHistory(history);
     alert("Mood history saved!");
   };
 
   const handleClearHistory = () => {
-    // Clears only the in-memory (UI) history.
-    // This change is not persisted to localStorage until 'Save' is clicked.
-    if (
-      window.confirm(
-        "Are you sure you want to clear the history from the UI? Your saved data will not be affected until you click 'Save'."
-      )
-    ) {
-      setHistory([]);
-    }
-  };
-
-  const handleCleanupHistory = () => {
-    // Remove any entries with invalid mood keys from the current history
-    const validHistory = history.filter((entry) => {
-      return entry.moodKey && MOODS.some((mood) => mood.key === entry.moodKey);
-    });
-    
-    const removedCount = history.length - validHistory.length;
-    if (removedCount > 0) {
-      setHistory(validHistory);
-      alert(`Cleaned up ${removedCount} invalid mood entries from history.`);
-    } else {
-      alert("No invalid entries found in history.");
-    }
+    // TEST: Clear button immediately empties the UI Recent History state
+    // This clears only the in-memory (UI) history without affecting localStorage.
+    // localStorage remains unchanged until 'Save' is explicitly clicked.
+    // TEST: Summary chart should also update to reflect empty state
+    setHistory([]);
   };
 
   /* ------------------------------ PERSIST STATE ------------------------------ */
@@ -210,16 +193,9 @@ function App() {
                 Save
               </button>
               <button
-                className="btn btn-secondary"
-                onClick={handleCleanupHistory}
-                aria-label="Remove invalid mood entries"
-              >
-                Cleanup
-              </button>
-              <button
                 className="btn btn-danger"
                 onClick={handleClearHistory}
-                aria-label="Clear all mood history"
+                aria-label="Clear Recent History from UI (localStorage unchanged until Save)"
               >
                 Clear
               </button>
