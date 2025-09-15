@@ -13,22 +13,40 @@ const MOODS = [
     aria: "I'm feeling happy",
   },
   {
-    key: "sad",
-    label: "Sad",
-    color: "#60a5fa", // Corresponds to --sad in CSS
-    aria: "I'm feeling sad",
-  },
-  {
-    key: "excited",
-    label: "Excited",
-    color: "#f59e0b", // Corresponds to --excited in CSS
-    aria: "I'm feeling excited",
+    key: "partially-happy",
+    label: "Partially Happy",
+    color: "#86efac", // Corresponds to --partially-happy in CSS
+    aria: "I'm feeling partially happy",
   },
   {
     key: "neutral",
     label: "Neutral",
     color: "#9ca3af", // Corresponds to --neutral in CSS
     aria: "I'm feeling neutral",
+  },
+  {
+    key: "partially-neutral",
+    label: "Partially Neutral",
+    color: "#cbd5e1", // Corresponds to --partially-neutral in CSS
+    aria: "I'm feeling partially neutral",
+  },
+  {
+    key: "sad",
+    label: "Sad",
+    color: "#60a5fa", // Corresponds to --sad in CSS
+    aria: "I'm feeling sad",
+  },
+  {
+    key: "not-really",
+    label: "Not Really",
+    color: "#94a3b8", // Corresponds to --not-really in CSS
+    aria: "I'm not really feeling it",
+  },
+  {
+    key: "excited",
+    label: "Excited",
+    color: "#f59e0b", // Corresponds to --excited in CSS
+    aria: "I'm feeling excited",
   },
 ];
 
