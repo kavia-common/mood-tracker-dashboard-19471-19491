@@ -15,7 +15,7 @@ const MOODS = [
   {
     key: "partially-happy",
     label: "Partially Happy 😊",
-    color: "#BBF7D0", // Light green variant
+    color: "#4ADE80", // Medium green variant
     aria: "I'm feeling partially happy",
   },
   {
@@ -27,7 +27,7 @@ const MOODS = [
   {
     key: "partially-neutral",
     label: "Partially Neutral 🫤",
-    color: "#E2E4FA", // Light lavender variant
+    color: "#818CF8", // Mid-lavender variant
     aria: "I'm feeling partially neutral",
   },
   {
@@ -39,7 +39,7 @@ const MOODS = [
   {
     key: "not-really",
     label: "Not Really 😶‍🌫️",
-    color: "#FCA5A5", // Light red/rose variant
+    color: "#FB7185", // Pinkish-red variant
     aria: "I'm not really feeling it",
   },
   {

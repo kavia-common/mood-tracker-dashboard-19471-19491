@@ -1,11 +1,11 @@
 :root {
   /* Base and Variant Mood Colors */
   --happy: #22C55E; /* Green base */
-  --partially-happy: #BBF7D0; /* Light green variant */
+  --partially-happy: #4ADE80; /* Medium green variant */
   --neutral: #A5A6F6; /* Lavender base */
-  --partially-neutral: #E2E4FA; /* Light lavender variant */
+  --partially-neutral: #818CF8; /* Mid-lavender variant */
   --sad: #EF4444; /* Red base */
-  --not-really: #FCA5A5; /* Light red/rose variant */
+  --not-really: #FB7185; /* Pinkish-red variant */
   --excited: #3B82F6; /* Blue base */
 
   /* Theme Colors */
