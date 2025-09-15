@@ -9,39 +9,27 @@ const MOODS = [
   {
     key: "happy",
     label: "Happy",
-    color: "#4ade80", // emerald-400
-    aria: "I'm feeling happy"
-  },
-  {
-    key: "partiallyHappy",
-    label: "Partially Happy",
-    color: "#86efac", // emerald-300
-    aria: "I'm feeling partially happy"
-  },
-  {
-    key: "neutral",
-    label: "Neutral",
-    color: "#facc15", // amber-400
-    aria: "I'm feeling neutral"
-  },
-  {
-    key: "partiallyNeutral",
-    label: "Partially Neutral",
-    color: "#fde047", // amber-300
-    aria: "I'm feeling partially neutral"
+    color: "#4ade80", // Corresponds to --happy in CSS
+    aria: "I'm feeling happy",
   },
   {
     key: "sad",
     label: "Sad",
-    color: "#60a5fa", // blue-400
-    aria: "I'm feeling sad"
+    color: "#60a5fa", // Corresponds to --sad in CSS
+    aria: "I'm feeling sad",
   },
   {
-    key: "notReally",
-    label: "Not really",
-    color: "#c084fc", // violet-300
-    aria: "I'm not really feeling anything"
-  }
+    key: "excited",
+    label: "Excited",
+    color: "#f59e0b", // Corresponds to --excited in CSS
+    aria: "I'm feeling excited",
+  },
+  {
+    key: "neutral",
+    label: "Neutral",
+    color: "#9ca3af", // Corresponds to --neutral in CSS
+    aria: "I'm feeling neutral",
+  },
 ];
 
 const STORAGE_KEY = "moodHistory_v1";
@@ -91,9 +79,10 @@ function App() {
 
   const handleSelectMood = (moodKey) => {
     // Adds a new mood entry to the in-memory history.
-    // This updates the UI but is not persisted to localStorage until 'Save' is clicked.
+    // This instantly updates the UI (Recent History, Summary) but is not
+    // persisted to localStorage until 'Save' is clicked.
     const newEntry = { moodKey, ts: Date.now() };
-    const updated = [newEntry, ...history]; // newest first
+    const updated = [newEntry, ...history]; // Add to the top
     setHistory(updated);
   };
 
@@ -104,7 +93,7 @@ function App() {
   };
 
   const handleClearHistory = () => {
-    // Clears the in-memory (UI) history.
+    // Clears only the in-memory (UI) history.
     // This change is not persisted to localStorage until 'Save' is clicked.
     if (
       window.confirm(

@@ -1,10 +1,11 @@
 :root {
-  --happy: #4ade80;
-  --partially-happy: #86efac;
-  --neutral: #facc15;
-  --partially-neutral: #fde047;
-  --sad: #60a5fa;
-  --not-really: #c084fc;
+  /* Mood Colors */
+  --happy: #4ade80; /* emerald-400 */
+  --sad: #60a5fa; /* blue-400 */
+  --excited: #f59e0b; /* amber-500 */
+  --neutral: #9ca3af; /* gray-400 */
+
+  /* Theme Colors */
   --bg: #f9fafb;
   --surface: #ffffff;
   --text: #111827;
