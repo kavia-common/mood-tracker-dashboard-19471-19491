@@ -21,7 +21,7 @@ const MOODS = [
   {
     key: "neutral",
     label: "Neutral 😐",
-    color: "#7A9AAF", // Using a softer blue-gray
+    color: "#A5A6F6", // Using a soothing lavender
     aria: "I'm feeling neutral",
   },
   {
