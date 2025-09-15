@@ -1,12 +1,12 @@
 :root {
-  /* Mood Colors with Gradients */
-  --happy: linear-gradient(135deg, #4ade80, #34d399); /* emerald gradient */
-  --sad: linear-gradient(135deg, #60a5fa, #3b82f6); /* blue gradient */
-  --excited: linear-gradient(135deg, #38BDF8, #0EA5E9); /* vibrant teal gradient */
-  --neutral: linear-gradient(135deg, #A5A6F6, #8788E0); /* soothing lavender gradient */
-  --partially-happy: linear-gradient(135deg, #86efac, #6ee7b7); /* emerald-light gradient */
-  --partially-neutral: linear-gradient(135deg, #4FB3BF, #3A8A94); /* teal gradient */
-  --not-really: linear-gradient(135deg, #94a3b8, #64748b); /* slate-dark gradient */
+  /* Base and Variant Mood Colors */
+  --happy: #22C55E; /* Green base */
+  --partially-happy: #BBF7D0; /* Light green variant */
+  --neutral: #A5A6F6; /* Lavender base */
+  --partially-neutral: #E2E4FA; /* Light lavender variant */
+  --sad: #EF4444; /* Red base */
+  --not-really: #FCA5A5; /* Light red/rose variant */
+  --excited: #3B82F6; /* Blue base */
 
   /* Theme Colors */
   --bg: #f9fafb;

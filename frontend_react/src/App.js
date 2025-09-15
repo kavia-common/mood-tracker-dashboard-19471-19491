@@ -9,43 +9,43 @@ const MOODS = [
   {
     key: "happy",
     label: "Happy 😀",
-    color: "#4ade80", // Corresponds to --happy in CSS
+    color: "#22C55E", // Green base color
     aria: "I'm feeling happy",
   },
   {
     key: "partially-happy",
     label: "Partially Happy 😊",
-    color: "#86efac", // Corresponds to --partially-happy in CSS
+    color: "#BBF7D0", // Light green variant
     aria: "I'm feeling partially happy",
   },
   {
     key: "neutral",
     label: "Neutral 😐",
-    color: "#A5A6F6", // Using a soothing lavender
+    color: "#A5A6F6", // Lavender base color
     aria: "I'm feeling neutral",
   },
   {
     key: "partially-neutral",
     label: "Partially Neutral 🫤",
-    color: "#4FB3BF", // Using a teal shade
+    color: "#E2E4FA", // Light lavender variant
     aria: "I'm feeling partially neutral",
   },
   {
     key: "sad",
     label: "Sad 😞",
-    color: "#60a5fa", // Corresponds to --sad in CSS
+    color: "#EF4444", // Red base color
     aria: "I'm feeling sad",
   },
   {
     key: "not-really",
     label: "Not Really 😶‍🌫️",
-    color: "#94a3b8", // Corresponds to --not-really in CSS
+    color: "#FCA5A5", // Light red/rose variant
     aria: "I'm not really feeling it",
   },
   {
     key: "excited",
     label: "Excited 🤩",
-    color: "#38BDF8", // Using a vibrant teal
+    color: "#3B82F6", // Blue base color
     aria: "I'm feeling excited",
   },
 ];
@@ -135,12 +135,6 @@ function App() {
     setHistory([]);
   };
 
-  /* ------------------------------ PERSIST STATE ------------------------------ */
-  // The useEffect for auto-saving is removed in favor of a manual "Save" button.
-  // useEffect(() => {
-  //   saveHistory(history);
-  // }, [history]);
-
   /* ------------------------------ DERIVED DATA ------------------------------ */
   const counts = useMemo(() => {
     const initial = Object.fromEntries(MOODS.map((m) => [m.key, 0]));
@@ -198,7 +192,6 @@ function App() {
           ))}
         </div>
       </section>
-=======
 
       <main className="dashboard">
         {/* History */}
