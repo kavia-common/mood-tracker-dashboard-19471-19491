@@ -8,44 +8,44 @@ import "./App.css";
 const MOODS = [
   {
     key: "happy",
-    label: "Happy",
+    label: "Happy 😀",
     color: "#4ade80", // Corresponds to --happy in CSS
     aria: "I'm feeling happy",
   },
   {
     key: "partially-happy",
-    label: "Partially Happy",
+    label: "Partially Happy 😊",
     color: "#86efac", // Corresponds to --partially-happy in CSS
     aria: "I'm feeling partially happy",
   },
   {
     key: "neutral",
-    label: "Neutral",
-    color: "#9ca3af", // Corresponds to --neutral in CSS
+    label: "Neutral 😐",
+    color: "#7A9AAF", // Using a softer blue-gray
     aria: "I'm feeling neutral",
   },
   {
     key: "partially-neutral",
-    label: "Partially Neutral",
-    color: "#cbd5e1", // Corresponds to --partially-neutral in CSS
+    label: "Partially Neutral 🫤",
+    color: "#4FB3BF", // Using a teal shade
     aria: "I'm feeling partially neutral",
   },
   {
     key: "sad",
-    label: "Sad",
+    label: "Sad 😞",
     color: "#60a5fa", // Corresponds to --sad in CSS
     aria: "I'm feeling sad",
   },
   {
     key: "not-really",
-    label: "Not Really",
+    label: "Not Really 😶‍🌫️",
     color: "#94a3b8", // Corresponds to --not-really in CSS
     aria: "I'm not really feeling it",
   },
   {
     key: "excited",
-    label: "Excited",
-    color: "#f59e0b", // Corresponds to --excited in CSS
+    label: "Excited 🤩",
+    color: "#38BDF8", // Using a vibrant teal
     aria: "I'm feeling excited",
   },
 ];
