@@ -41,7 +41,19 @@ const STORAGE_KEY = "moodHistory_v1";
 function loadHistory() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    if (!raw) return [];
+    
+    const parsedHistory = JSON.parse(raw);
+    // Filter out entries with invalid mood keys
+    const validHistory = parsedHistory.filter((entry) => {
+      const isValid = entry.moodKey && MOODS.some((mood) => mood.key === entry.moodKey);
+      if (!isValid) {
+        console.warn(`Filtering out invalid mood entry:`, entry);
+      }
+      return isValid;
+    });
+    
+    return validHistory;
   } catch {
     return [];
   }
@@ -104,6 +116,21 @@ function App() {
     }
   };
 
+  const handleCleanupHistory = () => {
+    // Remove any entries with invalid mood keys from the current history
+    const validHistory = history.filter((entry) => {
+      return entry.moodKey && MOODS.some((mood) => mood.key === entry.moodKey);
+    });
+    
+    const removedCount = history.length - validHistory.length;
+    if (removedCount > 0) {
+      setHistory(validHistory);
+      alert(`Cleaned up ${removedCount} invalid mood entries from history.`);
+    } else {
+      alert("No invalid entries found in history.");
+    }
+  };
+
   /* ------------------------------ PERSIST STATE ------------------------------ */
   // The useEffect for auto-saving is removed in favor of a manual "Save" button.
   // useEffect(() => {
@@ -114,7 +141,8 @@ function App() {
   const counts = useMemo(() => {
     const initial = Object.fromEntries(MOODS.map((m) => [m.key, 0]));
     history.forEach((item) => {
-      if (initial[item.moodKey] !== undefined) {
+      // Only count entries with valid mood keys that exist in MOODS
+      if (item.moodKey && initial[item.moodKey] !== undefined) {
         initial[item.moodKey] += 1;
       }
     });
@@ -182,6 +210,13 @@ function App() {
                 Save
               </button>
               <button
+                className="btn btn-secondary"
+                onClick={handleCleanupHistory}
+                aria-label="Remove invalid mood entries"
+              >
+                Cleanup
+              </button>
+              <button
                 className="btn btn-danger"
                 onClick={handleClearHistory}
                 aria-label="Clear all mood history"
@@ -194,6 +229,30 @@ function App() {
           <ul className="history-list">
             {history.slice(0, 10).map((entry, idx) => {
               const mood = MOODS.find((m) => m.key === entry.moodKey);
+              
+              // Guard against undefined mood objects
+              if (!mood) {
+                console.warn(`Unknown mood key: ${entry.moodKey}`);
+                return (
+                  <li key={idx} className="history-item">
+                    <span
+                      className="badge"
+                      style={{ backgroundColor: "#9ca3af" }}
+                    >
+                      Unknown
+                    </span>
+                    <time>
+                      {new Date(entry.ts).toLocaleDateString(undefined, {
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                      })}
+                    </time>
+                  </li>
+                );
+              }
+              
               return (
                 <li key={idx} className="history-item">
                   <span
