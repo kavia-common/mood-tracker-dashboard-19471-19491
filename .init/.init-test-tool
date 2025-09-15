@@ -1,0 +1,4 @@
+{
+    "command": "npm run test",
+    "working_directory": "/home/kavia/workspace/code-generation/mood-tracker-dashboard-19471-19491/frontend_react"
+}
