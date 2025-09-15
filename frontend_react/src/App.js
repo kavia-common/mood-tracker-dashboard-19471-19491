@@ -145,23 +145,28 @@ function App() {
     <div className="container">
       <header>
         <h1 className="title">Mood Tracker</h1>
-        <p className="subtitle">How are you feeling today?</p>
+        <p className="subtitle">Track your daily emotions</p>
       </header>
 
-      {/* Mood Buttons */}
-      <section className="mood-buttons" aria-label="Select your mood">
-        {MOODS.map((mood) => (
-          <button
-            key={mood.key}
-            className="mood-btn"
-            style={{ backgroundColor: mood.color }}
-            onClick={() => handleSelectMood(mood.key)}
-            aria-label={mood.aria}
-          >
-            {mood.label}
-          </button>
-        ))}
+      {/* Today's Mood Section */}
+      <section className="todays-mood-section" aria-label="Today's mood selection">
+        <h2 className="section-title">Today's Mood</h2>
+        <p className="section-description">How are you feeling right now?</p>
+        <div className="mood-buttons">
+          {MOODS.map((mood) => (
+            <button
+              key={mood.key}
+              className="mood-btn"
+              style={{ backgroundColor: mood.color }}
+              onClick={() => handleSelectMood(mood.key)}
+              aria-label={mood.aria}
+            >
+              {mood.label}
+            </button>
+          ))}
+        </div>
       </section>
+=======
 
       <main className="dashboard">
         {/* History */}
