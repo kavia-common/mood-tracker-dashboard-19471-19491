@@ -95,10 +95,23 @@ function App() {
     setHistory(updated);
   };
 
-  /* ------------------------------ PERSIST STATE ------------------------------ */
-  useEffect(() => {
+  const handleSaveHistory = () => {
     saveHistory(history);
-  }, [history]);
+    // Note: You could add a visual confirmation like a toast notification here.
+  };
+
+  const handleClearHistory = () => {
+    if (window.confirm("Are you sure you want to clear all mood history? This action cannot be undone.")) {
+      setHistory([]);
+      saveHistory([]); // Also clear it from localStorage
+    }
+  };
+
+  /* ------------------------------ PERSIST STATE ------------------------------ */
+  // The useEffect for auto-saving is removed in favor of a manual "Save" button.
+  // useEffect(() => {
+  //   saveHistory(history);
+  // }, [history]);
 
   /* ------------------------------ DERIVED DATA ------------------------------ */
   const counts = useMemo(() => {
@@ -156,7 +169,25 @@ function App() {
       <main className="dashboard">
         {/* History */}
         <div className="history-panel">
-          <h2>Recent History</h2>
+          <div className="history-header">
+            <h2>Recent History</h2>
+            <div className="history-actions">
+              <button
+                className="btn"
+                onClick={handleSaveHistory}
+                aria-label="Save history to local storage"
+              >
+                Save
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={handleClearHistory}
+                aria-label="Clear all mood history"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
           {history.length === 0 && <p>No moods logged yet.</p>}
           <ul className="history-list">
             {history.slice(0, 10).map((entry, idx) => {
@@ -215,7 +246,8 @@ function App() {
       {/* Footer */}
       <footer>
         <small>
-          Data is stored locally on your device. Clear browser storage to reset.
+          Click "Save" to persist your mood history. Data is stored on your
+          device.
         </small>
       </footer>
     </div>
