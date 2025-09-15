@@ -90,20 +90,28 @@ function App() {
   /* ------------------------------ EVENT HANDLERS ----------------------------- */
 
   const handleSelectMood = (moodKey) => {
+    // Adds a new mood entry to the in-memory history.
+    // This updates the UI but is not persisted to localStorage until 'Save' is clicked.
     const newEntry = { moodKey, ts: Date.now() };
     const updated = [newEntry, ...history]; // newest first
     setHistory(updated);
   };
 
   const handleSaveHistory = () => {
+    // Explicitly saves the current in-memory history to localStorage.
     saveHistory(history);
     alert("Mood history saved!");
   };
 
   const handleClearHistory = () => {
-    if (window.confirm("Are you sure you want to clear all mood history? This action cannot be undone.")) {
+    // Clears the in-memory (UI) history.
+    // This change is not persisted to localStorage until 'Save' is clicked.
+    if (
+      window.confirm(
+        "Are you sure you want to clear the history from the UI? Your saved data will not be affected until you click 'Save'."
+      )
+    ) {
       setHistory([]);
-      saveHistory([]); // Also clear it from localStorage
     }
   };
 
