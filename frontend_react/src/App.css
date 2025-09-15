@@ -210,3 +210,8 @@ footer {
 .btn.btn-secondary:hover {
   background-color: #f9fafb; /* gray-50 */
 }
+
+.btn-danger {
+  background-color: #EF4444;
+  color: white;
+}

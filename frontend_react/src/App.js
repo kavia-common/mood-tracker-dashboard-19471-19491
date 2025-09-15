@@ -97,7 +97,7 @@ function App() {
 
   const handleSaveHistory = () => {
     saveHistory(history);
-    // Note: You could add a visual confirmation like a toast notification here.
+    alert("Mood history saved!");
   };
 
   const handleClearHistory = () => {
@@ -180,7 +180,7 @@ function App() {
                 Save
               </button>
               <button
-                className="btn btn-secondary"
+                className="btn btn-danger"
                 onClick={handleClearHistory}
                 aria-label="Clear all mood history"
               >
