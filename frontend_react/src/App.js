@@ -109,17 +109,20 @@ function App() {
 
   const handleSelectMood = (moodKey) => {
     // TEST: New mood entries should appear immediately in Recent History and Summary
-    // Adds a new mood entry to the in-memory history.
-    // This instantly updates the UI (Recent History, Summary) but is not
-    // persisted to localStorage until 'Save' is clicked.
+    // Updates only the in-memory state (no localStorage write)
+    // - Immediately reflects in Recent History list
+    // - Immediately updates Summary chart
+    // - Does NOT persist to localStorage (requires Save button click)
     const newEntry = { moodKey, ts: Date.now() };
     const updated = [newEntry, ...history]; // Add to the top
     setHistory(updated);
   };
 
   const handleSaveHistory = () => {
-    // TEST: Save button should persist current UI state to localStorage
-    // Explicitly saves the current in-memory history to localStorage.
+    // TEST: Save button explicitly persists current UI state to localStorage
+    // - Only time localStorage is written to
+    // - Persists exact state currently visible in UI
+    // - Affects all mood types (including newer ones like Partially Happy)
     saveHistory(history);
     alert("Mood history saved!");
   };
