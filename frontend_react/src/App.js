@@ -189,7 +189,7 @@ function App() {
             <button
               key={mood.key}
               className="mood-btn"
-              style={{ backgroundColor: mood.color }}
+              style={{ background: mood.color }}
               onClick={() => handleSelectMood(mood.key)}
               aria-label={mood.aria}
             >
@@ -238,7 +238,7 @@ function App() {
                     >
                       Unknown
                     </span>
-                    <time>
+                    <time style={{ color: "#6b7280", fontSize: "0.875rem", fontWeight: "500" }}>
                       {new Date(entry.ts).toLocaleDateString(undefined, {
                         month: "short",
                         day: "numeric",
