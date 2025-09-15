@@ -51,13 +51,32 @@ function saveLS(key, value) {
 
 /**
  * Mood constants and metadata
+ * Added "Partially Happy" as an extra mood between Happy and Neutral.
  */
 const MOODS = {
-  happy: { label: 'Happy', emoji: '😊', colorVar: 'var(--mood-happy)' },
-  neutral: { label: 'Neutral', emoji: '😐', colorVar: 'var(--mood-neutral)' },
-  sad: { label: 'Sad', emoji: '😔', colorVar: 'var(--mood-sad)' },
+  happy: {
+    label: 'Happy',
+    emoji: '😊',
+    colorVar: 'var(--mood-happy)'
+  },
+  partially_happy: {
+    label: 'Partially Happy',
+    emoji: '🙂', // mild smile for intermediate mood
+    colorVar: 'var(--mood-partially-happy)'
+  },
+  neutral: {
+    label: 'Neutral',
+    emoji: '😐',
+    colorVar: 'var(--mood-neutral)'
+  },
+  sad: {
+    label: 'Sad',
+    emoji: '😔',
+    colorVar: 'var(--mood-sad)'
+  }
 };
-const MOOD_KEYS = Object.keys(MOODS);
+// Define mood order for UI/summary: happy, partially_happy, neutral, sad
+const MOOD_KEYS = ['happy', 'partially_happy', 'neutral', 'sad'];
 const STORAGE_KEYS = {
   theme: 'mood.theme',
   moods: 'mood.days',
@@ -77,12 +96,13 @@ function App() {
 
   const [theme, setTheme] = useState(initialTheme);
   const [moodsByDay, setMoodsByDay] = useState(() => {
-    // Ensure we store only last 14 days keys
+    // Ensure we store only last 14 days keys, and only valid moods (including partially_happy)
     const fromLS = loadLS(STORAGE_KEYS.moods, {});
     const allowed = new Set(lastNDaysKeys(14));
+    const validMoodKeys = new Set(MOOD_KEYS);
     const cleaned = {};
     for (const k of Object.keys(fromLS || {})) {
-      if (allowed.has(k) && MOOD_KEYS.includes(fromLS[k])) cleaned[k] = fromLS[k];
+      if (allowed.has(k) && validMoodKeys.has(fromLS[k])) cleaned[k] = fromLS[k];
     }
     return cleaned;
   });
@@ -100,8 +120,11 @@ function App() {
 
   // Derived data
   const dayKeys = useMemo(() => lastNDaysKeys(14), []);
+
+  // Now includes all four moods for mood counts and summary.
   const counts = useMemo(() => {
-    const c = { happy: 0, neutral: 0, sad: 0 };
+    // Initialize counts for all moods to zero
+    const c = { happy: 0, partially_happy: 0, neutral: 0, sad: 0 };
     for (const k of dayKeys) {
       const v = moodsByDay[k];
       if (v && c[v] !== undefined) c[v] += 1;
@@ -154,6 +177,7 @@ function App() {
     // Avoid zero-division; create segments proportional to counts
     const vals = [
       { key: 'happy', count: counts.happy, color: MOODS.happy.colorVar, label: MOODS.happy.label },
+      { key: 'partially_happy', count: counts.partially_happy, color: MOODS.partially_happy.colorVar, label: MOODS.partially_happy.label },
       { key: 'neutral', count: counts.neutral, color: MOODS.neutral.colorVar, label: MOODS.neutral.label },
       { key: 'sad', count: counts.sad, color: MOODS.sad.colorVar, label: MOODS.sad.label },
     ];
@@ -239,6 +263,7 @@ function App() {
                     className="mood-btn"
                     aria-pressed={active}
                     aria-label={`${MOODS[k].label} mood`}
+                    style={active ? { borderColor: 'var(--primary)' } : undefined}
                     onClick={() => setMoodForToday(k)}
                     onKeyDown={(e) => {
                       // keyboard support: Enter/Space to select
@@ -272,7 +297,11 @@ function App() {
             <div className="history-list" role="list" aria-label="Mood history for last 14 days">
               {dayKeys.map((k) => {
                 const m = moodsByDay[k] || null;
-                const label = m ? `${k}: ${MOODS[m].label}` : `${k}: not set`;
+                // If mood not set or mood is unknown (stale LS), treat as not set for badge/ARIA
+                const label = m && MOODS[m]
+                  ? `${k}: ${MOODS[m].label}`
+                  : `${k}: not set`;
+                // data-mood needed for CSS badge coloring
                 return (
                   <div
                     key={k}
@@ -328,17 +357,22 @@ function App() {
               <div className="legend" aria-label="Chart legend">
                 <div className="legend-item">
                   <span className="legend-swatch" style={{ background: MOODS.happy.colorVar }} aria-hidden="true" />
-                  <span>Happy</span>
+                  <span>{MOODS.happy.label}</span>
                   <span className="count">{counts.happy}</span>
                 </div>
                 <div className="legend-item">
+                  <span className="legend-swatch" style={{ background: MOODS.partially_happy.colorVar }} aria-hidden="true" />
+                  <span>{MOODS.partially_happy.label}</span>
+                  <span className="count">{counts.partially_happy}</span>
+                </div>
+                <div className="legend-item">
                   <span className="legend-swatch" style={{ background: MOODS.neutral.colorVar }} aria-hidden="true" />
-                  <span>Neutral</span>
+                  <span>{MOODS.neutral.label}</span>
                   <span className="count">{counts.neutral}</span>
                 </div>
                 <div className="legend-item">
                   <span className="legend-swatch" style={{ background: MOODS.sad.colorVar }} aria-hidden="true" />
-                  <span>Sad</span>
+                  <span>{MOODS.sad.label}</span>
                   <span className="count">{counts.sad}</span>
                 </div>
               </div>
